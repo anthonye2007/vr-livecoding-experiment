@@ -17,20 +17,22 @@ var makePaddle = function () {
 }
 
 var paddle = makePaddle();
-paddle.position.z -= 3.65;
+paddle.position.z -= 3.67;
+paddle.position.x = 2.34;
 scene.add(paddle);
 
 var otherPaddle = makePaddle();
 scene.add(otherPaddle);
 
 var anotherPaddle = makePaddle();
-anotherPaddle.position.x = -3.93;
+anotherPaddle.position.x = -4.65;
+anotherPaddle.position.z += 1.14;
 scene.add(anotherPaddle);
 
-var finalPaddle = makePaddle();
-finalPaddle.position.x = -3.93;
-finalPaddle.position.z -= 3.65;
-scene.add(finalPaddle);
+var secondPaddle = makePaddle();
+secondPaddle.position.x = -4.47;
+secondPaddle.position.z -= 3.65;
+scene.add(secondPaddle);
 
 var makeBall = function() {
  return new t3.Mesh(
@@ -43,7 +45,7 @@ ball.position.set(initX, initY, 0.75);
 scene.add(ball);
 
 var otherBall = makeBall();
-otherBall.position.set(-3.93, initY, 0.75);
+otherBall.position.set(secondPaddle.position.x, initY, 0.75);
 scene.add(otherBall);
 
 var direction = -1;
