@@ -3,18 +3,24 @@ var light = new t3.PointLight();
 light.position.set(-40, 15, -20);
 scene.add(light);
 
+var initX = 3.64;
+var initY = 1;
+var initZ = 1;
+var paddleWidth = 0.21;
+
 var makePaddle = function () {
-    return new t3.Mesh(
+  var mesh = new t3.Mesh(
         new t3.BoxGeometry(0.55, 0.5, 0.15),
         new t3.MeshLambertMaterial({color: 'blue'}));
+  mesh.position.set(initX, initY, initZ);
+  return mesh;
 }
 
 var paddle = makePaddle();
-paddle.position.set(2.08, 1.101, -1.2);
+paddle.position.z -= 3.65;
 scene.add(paddle);
 
 var otherPaddle = makePaddle();
-otherPaddle.position.set(2.082, 1, 1);
 scene.add(otherPaddle);
 
 var makeBall = function() {
@@ -24,16 +30,15 @@ var makeBall = function() {
 }
 
 var ball = makeBall();
-ball.position.set(2, 1, 0.75);
+ball.position.set(initX, initY, 0.75);
 scene.add(ball);
 
 var direction = -1;
 function animate() {
-  // only bounce between paddles
-  if (ball.position.z <= paddle.position.z + 0.25 || ball.position.z >= otherPaddle.position.z + -0.24) {
+  if (ball.position.z <= paddle.position.z + paddleWidth || ball.position.z >= otherPaddle.position.z - paddleWidth) {
     direction *= -1;
   }
   ball.position.z += 0.1 * direction;
 }
 
-setInterval(animate, 50);
+setInterval(animate, 25);
