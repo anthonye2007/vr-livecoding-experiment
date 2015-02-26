@@ -23,6 +23,15 @@ scene.add(paddle);
 var otherPaddle = makePaddle();
 scene.add(otherPaddle);
 
+var anotherPaddle = makePaddle();
+anotherPaddle.position.x = -3.93;
+scene.add(anotherPaddle);
+
+var finalPaddle = makePaddle();
+finalPaddle.position.x = -3.93;
+finalPaddle.position.z -= 3.65;
+scene.add(finalPaddle);
+
 var makeBall = function() {
  return new t3.Mesh(
         new t3.SphereGeometry(0.2),
@@ -33,12 +42,17 @@ var ball = makeBall();
 ball.position.set(initX, initY, 0.75);
 scene.add(ball);
 
+var otherBall = makeBall();
+otherBall.position.set(-3.93, initY, 0.75);
+scene.add(otherBall);
+
 var direction = -1;
 function animate() {
   if (ball.position.z <= paddle.position.z + paddleWidth || ball.position.z >= otherPaddle.position.z - paddleWidth) {
     direction *= -1;
   }
   ball.position.z += 0.1 * direction;
+  otherBall.position.z += 0.1 * direction;
 }
 
 setInterval(animate, 25);
