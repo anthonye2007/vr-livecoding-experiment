@@ -17,19 +17,23 @@ var makePaddle = function () {
 }
 
 var paddle = makePaddle();
+paddle.name = 'paddle';
 paddle.position.z -= 3.67;
 paddle.position.x = 2.34;
 scene.add(paddle);
 
 var otherPaddle = makePaddle();
+otherPaddle.name = 'otherPaddle';
 scene.add(otherPaddle);
 
 var anotherPaddle = makePaddle();
+anotherPaddle.name = 'anotherPaddle';
 anotherPaddle.position.x = -4.65;
 anotherPaddle.position.z += 1.14;
 scene.add(anotherPaddle);
 
 var secondPaddle = makePaddle();
+secondPaddle.name = 'secondPaddle';
 secondPaddle.position.x = -4.47;
 secondPaddle.position.z -= 3.65;
 scene.add(secondPaddle);
@@ -41,10 +45,12 @@ var makeBall = function() {
 }
 
 var ball = makeBall();
+ball.name = 'ball';
 ball.position.set(initX, initY, 0.75);
 scene.add(ball);
 
 var otherBall = makeBall();
+otherBall.name = 'otherBall';
 otherBall.position.set(secondPaddle.position.x, initY, 0.75);
 scene.add(otherBall);
 
@@ -57,4 +63,4 @@ function animate() {
   otherBall.position.z += 0.1 * direction;
 }
 
-setInterval(animate, 25);
+setInterval(animate, 20);
