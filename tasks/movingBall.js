@@ -9,31 +9,28 @@ var makeBall = function() {
         new t3.MeshLambertMaterial({color: 'red'}));
 }
 
-var makePaddle = function () {
-  var mesh = new t3.Mesh(
-        new t3.BoxGeometry(0.55, 0.5, 0.15),
-        new t3.MeshLambertMaterial({color: 'blue'}));
-  mesh.position.set(3.2, 1.5, 2);
-  return mesh;
-}
-
 var ball = makeBall();
-ball.name = 'ball';
-ball.position.set(1,1,0);
+ball.position.set(1,1,1);
 scene.add(ball);
 
-var paddle = makePaddle();
-paddle.name = 'paddle';
-paddle.position.z -= 3.67;
-paddle.position.x = 2.34;
-scene.add(paddle);
+var otherBall = makeBall();
+otherBall.position.set(1, 1, 1);
+scene.add(otherBall);
 
 var radius = 4;
 var angle = 0;
+var otherAngle = Math.PI / 4;
 var dAngle = Math.PI / 360;
+var otherDangle = 2 * dAngle;
 
 return function() {
   ball.position.x = radius * Math.cos(angle);
   ball.position.z = radius * Math.sin(angle);
-  angle += dAngle;
+  otherBall.position.x = radius * Math.cos(otherAngle);
+  otherBall.position.z = radius * Math.sin(otherAngle);
+  
+  var scale = 100;
+
+  angle += dAngle + 0 / scale;
+  otherAngle += otherDangle + 0;
 }
