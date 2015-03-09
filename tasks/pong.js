@@ -55,12 +55,10 @@ otherBall.position.set(secondPaddle.position.x, initY, 0.75);
 scene.add(otherBall);
 
 var direction = -1;
-function animate() {
+return function() {
   if (ball.position.z <= paddle.position.z + paddleWidth || ball.position.z >= otherPaddle.position.z - paddleWidth) {
     direction *= -1;
   }
   ball.position.z += 0.1 * direction;
   otherBall.position.z += 0.1 * direction;
 }
-
-setInterval(animate, 20);
