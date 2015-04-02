@@ -59,7 +59,7 @@ puts "Cube: " + cube.to_s
 target = Cube.new
 puts "Target: " + target.to_s
 
-file = File.open('temp.js', 'w')
+file = File.open('generated/temp.js', 'w')
 file.write(
 "var t3 = THREE;
 var cube = new t3.Mesh(
