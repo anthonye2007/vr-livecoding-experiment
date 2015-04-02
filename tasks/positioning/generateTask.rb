@@ -21,9 +21,9 @@ cube.z = rand(0...5)
 puts "Cube: " + cube.to_s
 
 target = Cube.new
-target.x = rand(0...6)
-target.y = rand(0...4)
-target.z = rand(0...5)
+target.x = rand(0...6) + rand(0...10) / 10.0
+target.y = rand(0...4) + rand(0...10) / 10.0
+target.z = rand(0...5) + rand(0...10) / 10.0
 
 puts "Target: " + target.to_s
 
