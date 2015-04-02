@@ -53,36 +53,43 @@ end
   # z must be greater than 0 (unless y is higher)
   # z must be less than 4
 
-cube = Cube.new
-puts "Cube: " + cube.to_s
+taskNum = ARGV[0] ? ARGV[0].to_i : 1
+#taskNum = 1 if not taskNum
+puts "Task: " + taskNum.to_s
 
-target = Cube.new
-puts "Target: " + target.to_s
+for i in 1..taskNum
+  cube = Cube.new
+  puts "Cube: " + cube.to_s
 
-file = File.open('generated/temp.js', 'w')
-file.write(
-"var t3 = THREE;
-var cube = new t3.Mesh(
-    new t3.BoxGeometry(0.5, 0.5, 0.5),
-    new t3.MeshLambertMaterial({color: 'blue'}));
-cube.position.set(#{cube});
-scene.add(cube);
-cube.name = 'cube';
+  target = Cube.new
+  puts "Target: " + target.to_s
+
+  filename = i.to_s + '.js'
+  file = File.open('generated/pos' + filename, 'w')
+  file.write(
+  "var t3 = THREE;
+  var cube = new t3.Mesh(
+      new t3.BoxGeometry(0.5, 0.5, 0.5),
+      new t3.MeshLambertMaterial({color: 'blue'}));
+  cube.position.set(#{cube});
+  scene.add(cube);
+  cube.name = 'cube';
 
 
-var light = new t3.PointLight();
-light.position.set(-40, 15, -20);
-scene.add(light);
+  var light = new t3.PointLight();
+  light.position.set(-40, 15, -20);
+  scene.add(light);
 
-const task = 'Positioning 1';
-logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
+  const task = 'Positioning G #{taskNum.to_s}';
+  logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
 
-/* DO NOT LOOK BELOW :)  */
+  /* DO NOT LOOK BELOW :)  */
 
-var target = new t3.Mesh(
-    new t3.BoxGeometry(0.5, 0.5, 0.5),
-    new t3.MeshLambertMaterial({color: 'red'}));
-target.position.set(#{target});
-scene.add(target);"
-)
-file.close
+  var target = new t3.Mesh(
+      new t3.BoxGeometry(0.5, 0.5, 0.5),
+      new t3.MeshLambertMaterial({color: 'red'}));
+  target.position.set(#{target});
+  scene.add(target);"
+  )
+  file.close
+end
