@@ -2,10 +2,27 @@ class Cube
   attr_reader :x, :y, :z
   attr_writer :x, :y, :z
 
+  MAX_DISTANCE = 5
+
   def initialize
+    while (true)
+      randomizePositions
+      break if reachable?
+    end
+  end
+
+  def randomizePositions
     @x = rand(-3...3) + rand(0...10) / 10.0
     @y = rand(0...2) + rand(0...10) / 10.0
     @z = rand(0...3) + rand(0...10) / 10.0
+  end
+
+  def reachable?
+    return distance < MAX_DISTANCE
+  end
+
+  def distance
+    return Math.sqrt(@x**2 + @y**2 + @z**2)
   end
 
   def to_s
@@ -33,14 +50,11 @@ end
   # z must be greater than 0 (unless y is higher)
   # z must be less than 4
 
-
-
 cube = Cube.new
 puts "Cube: " + cube.to_s
 
 target = Cube.new
 puts "Target: " + target.to_s
-
 
 file = File.open('temp.js', 'w')
 file.write(
