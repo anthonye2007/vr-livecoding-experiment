@@ -1,10 +1,12 @@
 class Paddle
-  attr_reader :x, :y, :z
-  attr_writer :x, :y, :z
+  attr_reader :x, :y, :z, :name
 
   MAX_DISTANCE = 5
 
-  def initialize
+  def initialize(num)
+    puts num
+    @name = 'paddle' + num.to_s
+
     while (true)
       randomizePositions
       @z += 1 if @y <= 1
@@ -30,6 +32,17 @@ class Paddle
 
   def to_s
     return "#{@x.to_s}, #{@y.to_s}, #{@z.to_s}"
+  end
+
+  def code
+    paddleStr = "
+    var #{name} = makePaddle();
+#{name}.name = '#{name}';
+#{name}.position.x += 3.30;
+#{name}.position.z = 7.17;
+#{name}.material.color.setStyle('blue');
+scene.add(#{name});
+"
   end
 end
 
@@ -58,8 +71,6 @@ taskNum = ARGV[0] ? ARGV[0].to_i : 1
 puts "Task: " + taskNum.to_s
 
 for i in 1..taskNum
-  cube = Paddle.new
-
   numPaddles = 11
 
   header = "var t3 = THREE;
@@ -77,85 +88,14 @@ var makePaddle = function () {
 
 "
 
+  allPaddles = header
+  for j in 1..numPaddles
+    paddle = Paddle.new(j)
+    allPaddles += paddle.code
+  end
+
   filename = i.to_s + '.js'
   file = File.open('generated/feature' + filename, 'w')
-  file.write(header +
-  "var secondPaddle = makePaddle();
-secondPaddle.name = 'secondPaddle';
-secondPaddle.position.x += 1.274;
-secondPaddle.position.z = 8.34;
-secondPaddle.material.color.setStyle('blue');
-scene.add(secondPaddle);
-
-var paddle1 = makePaddle();
-paddle1.name = 'paddle1';
-paddle1.position.x += 3.30;
-paddle1.position.z = 7.17;
-paddle1.material.color.setStyle('blue');
-scene.add(paddle1);
-
-var anotherPaddle = makePaddle();
-anotherPaddle.name = 'anotherPaddle';
-anotherPaddle.position.x += -3.75;
-anotherPaddle.position.z += 1.80;
-anotherPaddle.material.color.setStyle('blue');
-scene.add(anotherPaddle);
-
-var paddle7 = makePaddle();
-paddle7.name = 'paddle7';
-paddle7.position.z -= -0.03;
-paddle7.position.x = -1.90;
-paddle7.material.color.setStyle('blue');
-scene.add(paddle7);
-
-var paddle2 = makePaddle();
-paddle2.name = 'paddle2';
-paddle2.position.x += 0.63;
-paddle2.position.z += 1.27;
-paddle2.material.color.setStyle('blue');
-scene.add(paddle2);
-
-var paddle3 = makePaddle();
-paddle3.name = 'paddle3';
-paddle3.position.x += -7.14;
-paddle3.position.z += 2.15;
-paddle3.material.color.setStyle('blue');
-scene.add(paddle3);
-
-var paddle4 = makePaddle();
-paddle4.name = 'paddle4';
-paddle4.position.x += -2.99;
-paddle4.position.z += -0.37;
-paddle4.material.color.setStyle('blue');
-scene.add(paddle4);
-
-var paddle5 = makePaddle();
-paddle5.name = 'paddle5';
-paddle5.position.x += -7.99;
-paddle5.position.z += 4.43;
-paddle5.material.color.setStyle('blue');
-scene.add(paddle5);
-
-var paddle6 = makePaddle();
-paddle6.name = 'paddle6';
-paddle6.position.x += -4.45;
-paddle6.position.z += -1.48;
-paddle6.material.color.setStyle('blue');
-scene.add(paddle6);
-
-var otherPaddle = makePaddle();
-otherPaddle.name = 'otherPaddle';
-otherPaddle.position.z += 2.20;
-otherPaddle.position.x -= 0.50;
-otherPaddle.material.color.setStyle('blue');
-scene.add(otherPaddle);
-
-var paddle = makePaddle();
-paddle.name = 'paddle';
-paddle.position.z -= 0.32;
-paddle.position.x = -3.13;
-paddle.material.color.setStyle('blue');
-scene.add(paddle);"
-  )
+  file.write(allPaddles)
   file.close
 end
