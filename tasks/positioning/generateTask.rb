@@ -3,9 +3,9 @@ class Cube
   attr_writer :x, :y, :z
 
   def initialize
-    @x = 0
-    @y = 0
-    @z = 0
+    @x = rand(-3...3) + rand(0...10) / 10.0
+    @y = rand(0...2) + rand(0...10) / 10.0
+    @z = rand(0...3) + rand(0...10) / 10.0
   end
 
   def to_s
@@ -13,18 +13,32 @@ class Cube
   end
 end
 
-cube = Cube.new
-cube.x = rand(0...6)
-cube.y = rand(0...4)
-cube.z = rand(0...5)
+#maxes for cube
+# 3.2, 2.9, 3.1 -- 5.32
+# -0.7, 2.4, 2.1 -- 3.26 (scroll limit)
+# -4.2, 3, 1.7 -- 5.43
+# 4.3, 2.3, 0.6 -- 4.91 (scroll limit)
+# 4.30, 2.6, -6.1 -- 7.90 (after scrolling)
+# Full hand can reach ~5 units away from origin
 
+# Constraints:
+  # Cube must be within 5 units of origin
+  # Target must be within 5 units of origin
+  # Target must be within 5 units of cube
+  # y must be between 0 and 3.1
+    # starting at y=3.1 is fine
+    # can go higher if z is also increased
+  # x must be less than 4.2
+  # x must be greater than -4
+  # z must be greater than 0 (unless y is higher)
+  # z must be less than 4
+
+
+
+cube = Cube.new
 puts "Cube: " + cube.to_s
 
 target = Cube.new
-target.x = rand(0...6) + rand(0...10) / 10.0
-target.y = rand(0...4) + rand(0...10) / 10.0
-target.z = rand(0...5) + rand(0...10) / 10.0
-
 puts "Target: " + target.to_s
 
 
@@ -51,7 +65,6 @@ logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position
 var target = new t3.Mesh(
     new t3.BoxGeometry(0.5, 0.5, 0.5),
     new t3.MeshLambertMaterial({color: 'red'}));
-target.name = 'target';
 target.position.set(#{target});
 scene.add(target);"
 )
