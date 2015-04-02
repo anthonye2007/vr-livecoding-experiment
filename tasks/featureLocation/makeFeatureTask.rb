@@ -4,7 +4,6 @@ class Paddle
   MAX_DISTANCE = 5
 
   def initialize(num)
-    puts num
     @name = 'paddle' + num.to_s
 
     while (true)
@@ -38,8 +37,8 @@ class Paddle
     paddleStr = "
 var #{name} = makePaddle();
 #{name}.name = '#{name}';
-#{name}.position.x #{operator} 3.30;
-#{name}.position.z #{operator} 7.17;
+#{name}.position.x #{operator} #{x};
+#{name}.position.z #{operator} #{z};
 #{name}.material.color.setStyle('blue');
 scene.add(#{name});
 "
@@ -47,9 +46,6 @@ scene.add(#{name});
 
   def operator
     test = rand(0..2) 
-    # +=
-    # =
-    # -=
     return '+=' if test == 0
     return '=' if test == 1
     return '-=' if test == 2
@@ -83,7 +79,7 @@ taskNum = ARGV[0] ? ARGV[0].to_i : 1
 puts "Task: " + taskNum.to_s
 
 for i in 1..taskNum
-  numPaddles = 11
+  numPaddles = 12
 
   header = "var t3 = THREE;
 var light = new t3.PointLight();
