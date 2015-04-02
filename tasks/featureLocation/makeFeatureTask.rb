@@ -36,7 +36,7 @@ class Paddle
 
   def code
     paddleStr = "
-    var #{name} = makePaddle();
+var #{name} = makePaddle();
 #{name}.name = '#{name}';
 #{name}.position.x #{operator} 3.30;
 #{name}.position.z #{operator} 7.17;
