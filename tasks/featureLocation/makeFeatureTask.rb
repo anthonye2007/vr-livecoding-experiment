@@ -12,7 +12,7 @@ class Paddle
       @z += 1 if @y <= 1
 
       break if reachable?
-      puts "Could not reach: #{to_s}"
+      puts "Could not reach: #{to_s}" 
     end
   end
 
@@ -38,11 +38,23 @@ class Paddle
     paddleStr = "
     var #{name} = makePaddle();
 #{name}.name = '#{name}';
-#{name}.position.x += 3.30;
-#{name}.position.z = 7.17;
+#{name}.position.x #{operator} 3.30;
+#{name}.position.z #{operator} 7.17;
 #{name}.material.color.setStyle('blue');
 scene.add(#{name});
 "
+  end
+
+  def operator
+    test = rand(0..2) 
+    # +=
+    # =
+    # -=
+    return '+=' if test == 0
+    return '=' if test == 1
+    return '-=' if test == 2
+
+    puts 'should not be reached'
   end
 end
 
