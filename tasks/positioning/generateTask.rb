@@ -20,6 +20,13 @@ cube.z = rand(0...5)
 
 puts "Cube: " + cube.to_s
 
+target = Cube.new
+target.x = rand(0...6)
+target.y = rand(0...4)
+target.z = rand(0...5)
+
+puts "Target: " + target.to_s
+
 
 file = File.open('temp.js', 'w')
 file.write(
@@ -45,7 +52,7 @@ var target = new t3.Mesh(
     new t3.BoxGeometry(0.5, 0.5, 0.5),
     new t3.MeshLambertMaterial({color: 'red'}));
 target.name = 'target';
-target.position.set(0.5, 2.2, 1.7);
+target.position.set(#{target});
 scene.add(target);"
 )
 file.close
