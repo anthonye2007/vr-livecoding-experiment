@@ -7,7 +7,10 @@ class Cube
   def initialize
     while (true)
       randomizePositions
+      @z += 1 if @y <= 1
+
       break if reachable?
+      puts "Could not reach: #{to_s}"
     end
   end
 
