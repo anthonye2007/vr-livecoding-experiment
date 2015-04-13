@@ -12,22 +12,31 @@ File.readlines(filePath).each do |line|
   done = line if line.include?('Done')
 end
 
+def parseTime(str)
+  timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
+  timestamp.slice!(0) # Remove leading bracket, now have date, then time
+
+  timezoneOffset = '-05' # Eastern Time Zone is UTC-5
+  parsed = DateTime.parse(timestamp + timezoneOffset)
+  return parsed.to_time.to_i
+end
+
 puts done
-timestamp = done.split(']')[0] # Returns timestamp but with a leading square bracket
-timestamp.slice!(0) # Remove leading bracket, now have date, then time
 
-timezoneOffset = '-05' # Eastern Time Zone is UTC-5
-parsed = DateTime.parse(timestamp + timezoneOffset)
-puts parsed
-puts parsed.to_time.to_i #seconds since epoch
-
-doneTime = parsed.to_time.to_i
+doneTime = parseTime(done)
+puts "Finished at: " + doneTime.to_s
 
 ####
 
 start = ''
 File.readlines(filePath).each do |line|
-  start = line if line.include?('Start')
+  line.strip!
+  start = line if line.end_with?(':')
 end
 
 puts start
+start = parseTime(start)
+puts "Started at: " + start.to_s
+
+duration = doneTime - start
+puts "Duration (in seconds): " + duration.to_s
