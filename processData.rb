@@ -3,14 +3,8 @@ require "date"
 folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
 ext = '.log'
 filename = 'live'
-filePath = folderPath + filename + ext
-
-puts filePath
-done = ''
-
-File.readlines(filePath).each do |line|
-  done = line if line.include?('Done')
-end
+FilePath = folderPath + filename + ext
+puts FilePath
 
 def parseTime(str)
   timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
@@ -21,22 +15,35 @@ def parseTime(str)
   return parsed.to_time.to_i
 end
 
-puts done
+def findStartTime
+  start = ''
+  File.readlines(FilePath).each do |line|
+    line.strip!
+    start = line if line.end_with?(':')
+  end
 
-doneTime = parseTime(done)
-puts "Finished at: " + doneTime.to_s
+  startTime = parseTime(start)
+  puts "Started at: " + startTime.to_s
 
-####
-
-start = ''
-File.readlines(filePath).each do |line|
-  line.strip!
-  start = line if line.end_with?(':')
+  return startTime
 end
 
-puts start
-startTime = parseTime(start)
-puts "Started at: " + startTime.to_s
+def findEndTime
+  done = ''
 
-duration = doneTime - start
+  File.readlines(FilePath).each do |line|
+    done = line if line.include?('Done')
+  end
+
+  doneTime = parseTime(done)
+  puts "Finished at: " + doneTime.to_s
+
+  return doneTime
+end
+
+
+start = findStartTime()
+done = findEndTime()
+
+duration = done - start
 puts "Duration (in seconds): " + duration.to_s
