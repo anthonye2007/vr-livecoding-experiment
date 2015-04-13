@@ -1,4 +1,11 @@
 folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
-puts folderPath
-file = File.open(folderPath + 'live.log', 'r').read
-puts file.to_s
+ext = '.log'
+filename = 'live'
+filePath = folderPath + filename + ext
+
+puts filePath
+
+
+File.readlines(filePath).each do |line|
+  puts line if line.include?('Done')
+end
