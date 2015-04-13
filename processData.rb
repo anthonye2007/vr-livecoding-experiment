@@ -35,8 +35,8 @@ File.readlines(filePath).each do |line|
 end
 
 puts start
-start = parseTime(start)
-puts "Started at: " + start.to_s
+startTime = parseTime(start)
+puts "Started at: " + startTime.to_s
 
 duration = doneTime - start
 puts "Duration (in seconds): " + duration.to_s
