@@ -1,23 +1,23 @@
 var t3 = THREE;
-  var cube = new t3.Mesh(
-      new t3.BoxGeometry(0.5, 0.5, 0.5),
-      new t3.MeshLambertMaterial({color: 'blue'}));
-  cube.position.set(0.5, 0.6, 2.1);
-  scene.add(cube);
-  cube.name = 'cube';
+var cube = new t3.Mesh(
+    new t3.BoxGeometry(0.5, 0.5, 0.5),
+    new t3.MeshLambertMaterial({color: 'blue'}));
+cube.position.set(1.2, 1.8, 1.9);
+scene.add(cube);
+cube.name = 'cube';
 
 
-  var light = new t3.PointLight();
-  light.position.set(-40, 15, -20);
-  scene.add(light);
+var light = new t3.PointLight();
+light.position.set(-40, 15, -20);
+scene.add(light);
 
-  const task = 'Positioning G 30';
-  logger.log('Task: ' + task + '	x: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
+const task = 'Positioning G 30';
+logger.log('Task: ' + task + '	x: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
 
-  /* DO NOT LOOK BELOW :)  */
+/* DO NOT LOOK BELOW :)  */
 
-  var target = new t3.Mesh(
-      new t3.BoxGeometry(0.5, 0.5, 0.5),
-      new t3.MeshLambertMaterial({color: 'red'}));
-  target.position.set(0.8, 0.3, 2.0);
-  scene.add(target);
+var target = new t3.Mesh(
+    new t3.BoxGeometry(0.5, 0.5, 0.5),
+    new t3.MeshLambertMaterial({color: 'red'}));
+target.position.set(-0.7, 0.5, 3.4);
+scene.add(target);

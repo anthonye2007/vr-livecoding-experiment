@@ -67,29 +67,29 @@ for i in 1..taskNum
   filename = i.to_s + '.js'
   file = File.open('generated/pos' + filename, 'w')
   file.write(
-  "var t3 = THREE;
-  var cube = new t3.Mesh(
-      new t3.BoxGeometry(0.5, 0.5, 0.5),
-      new t3.MeshLambertMaterial({color: 'blue'}));
-  cube.position.set(#{cube});
-  scene.add(cube);
-  cube.name = 'cube';
+"var t3 = THREE;
+var cube = new t3.Mesh(
+    new t3.BoxGeometry(0.5, 0.5, 0.5),
+    new t3.MeshLambertMaterial({color: 'blue'}));
+cube.position.set(#{cube});
+scene.add(cube);
+cube.name = 'cube';
 
 
-  var light = new t3.PointLight();
-  light.position.set(-40, 15, -20);
-  scene.add(light);
+var light = new t3.PointLight();
+light.position.set(-40, 15, -20);
+scene.add(light);
 
-  const task = 'Positioning G #{taskNum.to_s}';
-  logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
+const task = 'Positioning G #{taskNum.to_s}';
+logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
 
-  /* DO NOT LOOK BELOW :)  */
+/* DO NOT LOOK BELOW :)  */
 
-  var target = new t3.Mesh(
-      new t3.BoxGeometry(0.5, 0.5, 0.5),
-      new t3.MeshLambertMaterial({color: 'red'}));
-  target.position.set(#{target});
-  scene.add(target);"
+var target = new t3.Mesh(
+    new t3.BoxGeometry(0.5, 0.5, 0.5),
+    new t3.MeshLambertMaterial({color: 'red'}));
+target.position.set(#{target});
+scene.add(target);"
   )
   file.close
 end
