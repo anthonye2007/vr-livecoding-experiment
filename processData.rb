@@ -6,6 +6,8 @@ FolderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-" + partici
 puts FolderPath
 Ext = '.log'
 
+Verbose = ARGV[1] == '-v'
+
 def parseTime(str)
   timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
   timestamp.slice!(0) # Remove leading bracket, now have date, then time
@@ -47,7 +49,7 @@ def processFile(filename)
   done = findEndTime(filename)
 
   duration = done - start
-  puts "Duration (in seconds): " + duration.to_s
+  puts "Duration (in seconds): " + duration.to_s if Verbose
 
   return duration
 end
