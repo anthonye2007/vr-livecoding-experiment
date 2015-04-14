@@ -1,7 +1,9 @@
 require "date"
 
 #folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
-FolderPath = ARGV[0]
+participant = ARGV[0] ? ARGV[0] : 2
+FolderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-" + participant.to_s + "\\"
+puts FolderPath
 Ext = '.log'
 
 def parseTime(str)
@@ -41,24 +43,44 @@ def findEndTime(filename)
 end
 
 def processFile(filename)
-  puts "Environment: " + filename
   start = findStartTime(filename)
   done = findEndTime(filename)
 
   duration = done - start
   puts "Duration (in seconds): " + duration.to_s
-  puts ''
 
   return duration
 end
 
-environment = 'fullHandMovement'
+environments = ['non-live', 'live', 'verticalHand', 'fullHandMovement']
 
-seconds = 0
+puts "Positioning Task"
+puts ""
 
-seconds += processFile(environment)
-seconds += processFile(environment + '(1)')
-seconds += processFile(environment + '(2)')
+environments.each do |env| 
+  puts "Environment: " + env
 
-average = seconds / 3.0
-puts "Average time: " + average.to_s
+  seconds = processFile(env)
+  seconds += processFile(env + '(1)')
+  seconds += processFile(env + '(2)')
+
+  average = (seconds / 3.0).round(1)
+  puts "Average time: " + average.to_s
+  puts ''
+end
+
+puts ""
+puts "Feature Location Task"
+puts ""
+
+environments.each do |env| 
+  puts "Environment: " + env
+
+  seconds = processFile(env + '(3)')
+  seconds += processFile(env + '(4)')
+  seconds += processFile(env + '(5)')
+
+  average = (seconds / 3.0).round(1)
+  puts "Average time: " + average.to_s
+  puts ''
+end
