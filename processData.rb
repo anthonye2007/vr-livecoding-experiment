@@ -7,6 +7,7 @@ puts FolderPath
 Ext = '.log'
 
 Verbose = ARGV[1] == '-v'
+WriteToFile = ARGV[1] == '-f' || ARGV[2] == '-f'
 
 def parseTime(str)
   timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
@@ -53,6 +54,18 @@ def processFile(filename)
 
   return duration
 end
+
+def write(str)
+  if WriteToFile
+    open('myfile.out', 'a') do |f|
+      f.puts "Hello, world. It's me again."
+    end
+  else
+    puts str
+  end
+end
+
+write('test')
 
 environments = ['non-live', 'live', 'verticalHand', 'fullHandMovement']
 
