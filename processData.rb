@@ -1,6 +1,7 @@
 require "date"
 
-folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
+#folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
+folderPath = ARGV[0]
 ext = '.log'
 filename = 'live'
 FilePath = folderPath + filename + ext
@@ -41,9 +42,12 @@ def findEndTime
   return doneTime
 end
 
+def processFile
+  start = findStartTime()
+  done = findEndTime()
 
-start = findStartTime()
-done = findEndTime()
+  duration = done - start
+  puts "Duration (in seconds): " + duration.to_s
+end
 
-duration = done - start
-puts "Duration (in seconds): " + duration.to_s
+processFile
