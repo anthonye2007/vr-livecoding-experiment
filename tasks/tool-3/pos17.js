@@ -2,7 +2,7 @@ var t3 = THREE;
 var cube = new t3.Mesh(
     new t3.BoxGeometry(0.5, 0.5, 0.5),
     new t3.MeshLambertMaterial({color: 'blue'}));
-cube.position.set(1.2, 1.8, 1.9);
+cube.position.set(2.9, 1.3, 0.6);
 scene.add(cube);
 cube.name = 'cube';
 
@@ -19,5 +19,5 @@ logger.log('Task: ' + task + '	x: ' + cube.position.x + ', y: ' + cube.position.
 var target = new t3.Mesh(
     new t3.BoxGeometry(0.5, 0.5, 0.5),
     new t3.MeshLambertMaterial({color: 'red'}));
-target.position.set(-0.7, 0.5, 3.4);
+target.position.set(-2.5, 1.3, 1.7);
 scene.add(target);

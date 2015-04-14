@@ -1,16 +1,17 @@
-class Cube
-  attr_reader :x, :y, :z
-  attr_writer :x, :y, :z
+class Paddle
+  attr_reader :x, :y, :z, :name
 
   MAX_DISTANCE = 5
 
-  def initialize
+  def initialize(num)
+    @name = 'paddle' + num.to_s
+
     while (true)
       randomizePositions
       @z += 1 if @y <= 1
 
       break if reachable?
-      puts "Could not reach: #{to_s}"
+      puts "Could not reach: #{to_s}" 
     end
   end
 
@@ -30,6 +31,26 @@ class Cube
 
   def to_s
     return "#{@x.to_s}, #{@y.to_s}, #{@z.to_s}"
+  end
+
+  def code
+    paddleStr = "
+var #{name} = makePaddle();
+#{name}.name = '#{name}';
+#{name}.position.x #{operator} #{x};
+#{name}.position.z #{operator} #{z};
+#{name}.material.color.setStyle('blue');
+scene.add(#{name});
+"
+  end
+
+  def operator
+    test = rand(0..2) 
+    return '+=' if test == 0
+    return '=' if test == 1
+    return '-=' if test == 2
+
+    puts 'should not be reached'
   end
 end
 
@@ -58,38 +79,31 @@ taskNum = ARGV[0] ? ARGV[0].to_i : 1
 puts "Task: " + taskNum.to_s
 
 for i in 1..taskNum
-  cube = Cube.new
-  puts "Cube: " + cube.to_s
+  numPaddles = 12
 
-  target = Cube.new
-  puts "Target: " + target.to_s
-
-  filename = i.to_s + '.js'
-  file = File.open('generated/pos' + filename, 'w')
-  file.write(
-"var t3 = THREE;
-var cube = new t3.Mesh(
-    new t3.BoxGeometry(0.5, 0.5, 0.5),
-    new t3.MeshLambertMaterial({color: 'blue'}));
-cube.position.set(#{cube});
-scene.add(cube);
-cube.name = 'cube';
-
-
+  header = "var t3 = THREE;
 var light = new t3.PointLight();
 light.position.set(-40, 15, -20);
 scene.add(light);
 
-const task = 'Positioning G #{taskNum.to_s}';
-logger.log('Task: ' + task + '\tx: ' + cube.position.x + ', y: ' + cube.position.y + ', z: ' + cube.position.z);
+var makePaddle = function () {
+  var mesh = new t3.Mesh(
+        new t3.BoxGeometry(0.55, 0.5, 0.15),
+        new t3.MeshLambertMaterial({color: 'blue'}));
+  mesh.position.set(3.64, 1, 1);
+  return mesh;
+}
 
-/* DO NOT LOOK BELOW :)  */
+"
 
-var target = new t3.Mesh(
-    new t3.BoxGeometry(0.5, 0.5, 0.5),
-    new t3.MeshLambertMaterial({color: 'red'}));
-target.position.set(#{target});
-scene.add(target);"
-  )
+  allPaddles = header
+  for j in 1..numPaddles
+    paddle = Paddle.new(j)
+    allPaddles += paddle.code
+  end
+
+  filename = i.to_s + '.js'
+  file = File.open('generated/feature' + filename, 'w')
+  file.write(allPaddles)
   file.close
 end
