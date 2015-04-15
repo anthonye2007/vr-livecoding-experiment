@@ -1,13 +1,19 @@
 require "date"
 
+class String
+  def is_integer?
+    self.to_i.to_s == self
+  end
+end
+
 #folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
-participant = ARGV[0] ? ARGV[0] : 2
+participant = ARGV[0] && ARGV[0].is_integer? ? ARGV[0] : 2
 FolderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-" + participant.to_s + "\\"
 puts FolderPath
 Ext = '.log'
 
-Verbose = ARGV[1] == '-v'
-WriteToFile = ARGV[1] == '-f' || ARGV[2] == '-f'
+Verbose = ARGV.include?('-v')
+WriteToFile = ARGV.include?('-f')
 
 def parseTime(str)
   timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
