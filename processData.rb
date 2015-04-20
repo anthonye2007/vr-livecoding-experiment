@@ -63,20 +63,22 @@ end
 
 def write(str)
   if WriteToFile
-    open('myfile.out', 'a') do |f|
-      f.puts "Hello, world. It's me again."
+    open('positioning.csv', 'a') do |f|
+      f.puts str
     end
   else
     puts str
   end
 end
 
-write('test')
+#write('experiment,non-live,live,vertical,full')
 
 environments = ['non-live', 'live', 'verticalHand', 'fullHandMovement']
 
 puts "Positioning Task"
 puts ""
+
+positioning = []
 
 environments.each do |env| 
   puts "Environment: " + env
@@ -86,9 +88,12 @@ environments.each do |env|
   seconds += processFile(env + '(2)')
 
   average = (seconds / 3.0).round(1)
+  positioning.push(average)
   puts "Average time: " + average.to_s
   puts ''
 end
+
+write("P" + participant + "," + positioning.join(","))
 
 puts ""
 puts "Feature Location Task"
