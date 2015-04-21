@@ -64,9 +64,19 @@ def processFile(filename)
   return duration
 end
 
-def write(str)
+def writeToPositioning(str)
   if WriteToFile
     open('positioning.csv', 'a') do |f|
+      f.puts str
+    end
+  else
+    puts str
+  end
+end
+
+def writeToFeatureLocation(str)
+  if WriteToFile
+    open('featureLocation.csv', 'a') do |f|
       f.puts str
     end
   else
@@ -93,13 +103,15 @@ def runPositioning
     puts ''
   end
 
-  write("P" + Participant + "," + positioning.join(","))
+  writeToPositioning("P" + Participant + "," + positioning.join(","))
 end
 
 def runFeatureLocation
   puts ""
   puts "Feature Location Task"
   puts ""
+
+  times = []
 
   Environments.each do |env| 
     puts "Environment: " + env
@@ -109,15 +121,14 @@ def runFeatureLocation
     seconds += processFile(env + '(5)')
 
     average = (seconds / 3.0).round(1)
+    times.push(average)
     puts "Average time: " + average.to_s
     puts ''
   end
+
+  # Write this to featureLocation.csv
+  writeToFeatureLocation("P" + Participant + "," + times.join(","))
 end
 
-#write('experiment,non-live,live,vertical,full')
-
-if RunPositioning
-  runPositioning()
-else
-  runFeatureLocation()
-end
+runPositioning()
+runFeatureLocation()
