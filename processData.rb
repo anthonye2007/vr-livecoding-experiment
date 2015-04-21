@@ -6,14 +6,17 @@ class String
   end
 end
 
-#folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-2\\"
-participant = ARGV[0] && ARGV[0].is_integer? ? ARGV[0] : 2
-FolderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-" + participant.to_s + "\\"
+#folderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-1\\"
+Participant = ARGV[0] && ARGV[0].is_integer? ? ARGV[0] : 1
+FolderPath = "C:\\Users\\Anthony\\Documents\\code\\data\\participant-" + Participant.to_s + "\\"
 puts FolderPath
 Ext = '.log'
 
-Verbose = ARGV.include?('-v')
-WriteToFile = ARGV.include?('-f')
+Verbose = ARGV.include?('-v') || ARGV.include?('--verbose')
+WriteToFile = ARGV.include?('-f') || ARGV.include?('--file')
+RunPositioning = ARGV.include?('-p') || ARGV.include?('--positioning')
+
+Environments = ['non-live', 'live', 'verticalHand', 'fullHandMovement']
 
 def parseTime(str)
   timestamp = str.split(']')[0] # Returns timestamp but with a leading square bracket
@@ -71,42 +74,50 @@ def write(str)
   end
 end
 
-#write('experiment,non-live,live,vertical,full')
+def runPositioning
+  puts "Positioning Task"
+  puts ""
 
-environments = ['non-live', 'live', 'verticalHand', 'fullHandMovement']
+  positioning = []
 
-puts "Positioning Task"
-puts ""
+  Environments.each do |env| 
+    puts "Environment: " + env
 
-positioning = []
+    seconds = processFile(env)
+    seconds += processFile(env + '(1)')
+    seconds += processFile(env + '(2)')
 
-environments.each do |env| 
-  puts "Environment: " + env
+    average = (seconds / 3.0).round(1)
+    positioning.push(average)
+    puts "Average time: " + average.to_s
+    puts ''
+  end
 
-  seconds = processFile(env)
-  seconds += processFile(env + '(1)')
-  seconds += processFile(env + '(2)')
-
-  average = (seconds / 3.0).round(1)
-  positioning.push(average)
-  puts "Average time: " + average.to_s
-  puts ''
+  write("P" + Participant + "," + positioning.join(","))
 end
 
-write("P" + participant + "," + positioning.join(","))
+def runFeatureLocation
+  puts ""
+  puts "Feature Location Task"
+  puts ""
 
-puts ""
-puts "Feature Location Task"
-puts ""
+  Environments.each do |env| 
+    puts "Environment: " + env
 
-environments.each do |env| 
-  puts "Environment: " + env
+    seconds = processFile(env + '(3)')
+    seconds += processFile(env + '(4)')
+    seconds += processFile(env + '(5)')
 
-  seconds = processFile(env + '(3)')
-  seconds += processFile(env + '(4)')
-  seconds += processFile(env + '(5)')
+    average = (seconds / 3.0).round(1)
+    puts "Average time: " + average.to_s
+    puts ''
+  end
+end
 
-  average = (seconds / 3.0).round(1)
-  puts "Average time: " + average.to_s
-  puts ''
+#write('experiment,non-live,live,vertical,full')
+
+if RunPositioning
+  runPositioning()
+else
+  runFeatureLocation()
 end
