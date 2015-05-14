@@ -1,0 +1,7 @@
+---- Session started: Tue Mar 31 2015 16:23:39 GMT-0400 (Eastern Standard Time) ----
+
+[2015-03-31 16:23:39]: Environment: vertical hand movement
+[2015-03-31 16:23:50]: Done
+
+---- Log retrieved: Tue Mar 31 2015 16:23:51 GMT-0400 (Eastern Standard Time) ----
+---- Session duration: 00:00:11 ----

@@ -1,0 +1,15 @@
+Environment: vertical hand movement
+
+16:14:40 start pos 2
+16:16 end pos 2
+
+16:17 start pos 3
+16:17 end pos 3
+
+16:18 start pos 4
+16:19 end pos 4
+
+---
+
+16:24 start feature 2
+16:27 end feature 2
